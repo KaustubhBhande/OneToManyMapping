@@ -48,6 +48,11 @@ public class CategoryController {
 
 	@PostMapping(" ")
 	public ResponseEntity<?> AddCategory(@RequestBody Category Category) {
+		List<String> errors = CategoryService.validate(Category);
+		if (!errors.isEmpty()) {
+			return ResponseEntity.badRequest().body(errors);
+		}
+		
 		CategoryService.AddCategory(Category);
 		return ResponseEntity.status(HttpStatus.CREATED).body("Category Added Sucessfully.");
 	}
@@ -73,6 +78,11 @@ public class CategoryController {
 
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateCategory(@PathVariable Integer id, @RequestBody Category Category) {
+		
+		List<String> errors = CategoryService.validate(Category);
+		if (!errors.isEmpty()) {
+			return ResponseEntity.badRequest().body(errors);
+		}
 
 		Optional<Category> existingCategory = CategoryService.GetCategory(id);
 		if (!existingCategory.isPresent()) {

@@ -1,5 +1,6 @@
 package com.OneToMany.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +44,21 @@ public class ProductService {
 		existingproduct.setDescription(product.getDescription());
 		existingproduct.setPrice(product.getPrice());
 		return productRepository.save(existingproduct);
+	}
+
+	public List<String> validate(Product product) {
+
+		List<String> error = new ArrayList<>();
+
+		if (product.getName() == null) {
+			error.add("Name Cannot Be Empty");
+		}
+		
+		if (product.getDescription()== null) {
+			error.add("Description Cannot Be Empty");
+		}
+		
+		return error;
+		
 	}
 }

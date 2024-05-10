@@ -4,7 +4,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "product")
@@ -13,13 +12,12 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @NotNull(message = "Name Cannot Be Null")
+
     private String name;
 
-    @NotNull(message = "Description Cannot Be Null")
     private String description;
 
-    @NotNull(message = "Price Cannot Be Null")
+ 
     private float price;
 
 	public int getId() {

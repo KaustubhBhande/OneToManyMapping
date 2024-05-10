@@ -1,9 +1,12 @@
 package com.OneToMany.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.OneToMany.Model.Category;
 import com.OneToMany.Repository.CategoryRepository;
 
@@ -11,6 +14,22 @@ import com.OneToMany.Repository.CategoryRepository;
 public class CategoryService {
 	@Autowired
 	private CategoryRepository categoryRepository;
+	
+	
+	public List<String> validate(Category category) {
+
+		List<String> error = new ArrayList<>();
+
+		if (category.getName() == null) {
+			error.add("Name Cannot Be Empty");
+		}
+		
+		if (category.getProducts()== null) {
+			error.add("Products Cannot Be Empty");
+		}
+		
+		return error;
+	}
 
 	public List<Category> GetAllCategory() {
 	    return  (List<Category>) this.categoryRepository.findAll();

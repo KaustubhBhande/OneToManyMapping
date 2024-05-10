@@ -51,6 +51,10 @@ public class ProductController {
 
 	@PostMapping(" ")
 	public ResponseEntity<?> AddProduct(@RequestBody Product product) {
+		List<String> error = productService.validate(product);
+		if (error.size() != 0) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+		}
 		productService.AddProduct(product);
 		return ResponseEntity.status(HttpStatus.CREATED).body("Product Added Sucessfully.");
 	}
@@ -75,6 +79,11 @@ public class ProductController {
 
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateProduct(@PathVariable Integer id, @RequestBody Product product) {
+		
+		List<String> errors = productService.validate(product);
+		if (!errors.isEmpty()) {
+			return ResponseEntity.badRequest().body(errors);
+		}
 
 		Optional<Product> existingproduct = productService.GetProduct(id);
 		if (!existingproduct.isPresent()) {

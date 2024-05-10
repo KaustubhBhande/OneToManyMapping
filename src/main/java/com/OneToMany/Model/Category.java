@@ -1,5 +1,6 @@
 package com.OneToMany.Model;
 import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,7 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "category")
@@ -20,7 +20,7 @@ public class Category {
     @Column(name = "category_id")
     private int id;
     
-    @NotNull(message = "Name Cannot Be Null")
+   
     private String name;
     
     @OneToMany(cascade=CascadeType.ALL)
